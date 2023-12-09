@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QRAttend.Dto;
 using QRAttend.Models;
 using System.Collections.Immutable;
@@ -43,5 +44,28 @@ namespace QRAttend.Controllers
             }
             return BadRequest("Lecture Object is not Valid !!!");
         }
+        [HttpGet("{Id:int}")]
+        public IActionResult LectureDetails(int Id)
+        {
+            var lecture = context.Lectures
+                .Include(l => l.Attendances)
+                .ThenInclude(a => a.Student)
+                .FirstOrDefault(l => l.Id == Id);
+
+            if (lecture == null)
+            {
+                return NotFound("No lecture found with the given ID.");
+            }
+
+            var lectureDetails = new LectureDetailsDto
+            {
+                LectureTitle = lecture.Title,
+                StudentName = lecture.Attendances.Select(a => a.Student.Name).ToList(),
+                StudentUniversityId = lecture.Attendances.Select(a => a.Student.UniversityId).ToList()
+            };
+
+            return Ok(lectureDetails);
+        }
+
     }
 }

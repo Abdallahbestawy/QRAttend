@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QRAttend.Dto;
 using QRAttend.Models;
 
@@ -43,5 +44,18 @@ namespace QRAttend.Controllers
             }
             return BadRequest("Attendance Object is not Valid !!!");
         }
+ 
+
+
+        //var lectureDetails = new LectureDetailsDto
+        //{
+        //    LectureTitle = attendances.First().Lecture.Title, // Assuming 'Lecture' has a property 'Title'
+        //    StudentName = attendances.Select(a => a.Student.Name).ToList(),
+        //    StudentUniversityId = attendances.Select(a => a.Student.UniversityId).ToList()
+        //};
+
+        //return Ok(lectureDetails);
     }
+
+
 }
