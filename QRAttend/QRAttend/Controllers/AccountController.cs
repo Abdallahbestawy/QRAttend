@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -23,6 +24,7 @@ namespace QRAttend.Controllers
             userManager = _userManager;
             configuration = _configuration;
         }
+        [Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> Registration(RegisterUserDto userDto ) 
         {
@@ -71,12 +73,7 @@ namespace QRAttend.Controllers
                             token=new JwtSecurityTokenHandler().WriteToken(Token),
                             expires= Token.ValidTo
 
-                        });
-                            
-
-
-                         
-                            
+                        }); 
                     }
                 }
                 return Unauthorized();

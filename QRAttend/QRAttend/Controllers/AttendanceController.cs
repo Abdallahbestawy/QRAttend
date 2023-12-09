@@ -21,6 +21,16 @@ namespace QRAttend.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool attendanceExists = context.Attendances
+                 .Any(a => a.LectureId == attendanceDto.LectureId &&
+                 a.MacAddressStudent == attendanceDto.MacAddressStudent ||
+                a.StudentId == attendanceDto.StudentId);
+
+                if (attendanceExists)
+                {
+                    return BadRequest("Attendance for this MacAddressStudent or StudentId already exists for the specified Lecture.");
+                }
+
                 var attendance = new Attendance()
                 {
                     MacAddressStudent = attendanceDto.MacAddressStudent,
@@ -44,17 +54,6 @@ namespace QRAttend.Controllers
             }
             return BadRequest("Attendance Object is not Valid !!!");
         }
- 
-
-
-        //var lectureDetails = new LectureDetailsDto
-        //{
-        //    LectureTitle = attendances.First().Lecture.Title, // Assuming 'Lecture' has a property 'Title'
-        //    StudentName = attendances.Select(a => a.Student.Name).ToList(),
-        //    StudentUniversityId = attendances.Select(a => a.Student.UniversityId).ToList()
-        //};
-
-        //return Ok(lectureDetails);
     }
 
 

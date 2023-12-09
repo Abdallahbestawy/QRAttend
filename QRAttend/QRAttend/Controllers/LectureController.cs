@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QRAttend.Dto;
@@ -9,25 +11,33 @@ namespace QRAttend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LectureController : ControllerBase
     {
         private readonly QRContext context;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public LectureController(QRContext _context)
+        public LectureController(QRContext _context, UserManager<ApplicationUser> _userManager)
         {
             context = _context;
+            userManager = _userManager;
         }
         [HttpPost("postlecture")]
         public IActionResult PostLecture(LectureDto lectureDto)
         {
             if (ModelState.IsValid)
             {
+                var currentUser=userManager.GetUserAsync(User).Result;
+                if (currentUser == null)
+                {
+                    return Unauthorized();
+                }
                 var lecture = new Lecture()
                 {
                     Title = lectureDto.Title,
                     Date = DateTime.Now,
-                    DoctorId=lectureDto.DoctorId,
                 };
+                lecture.DoctorId = currentUser.Id;  
                 context.Lectures.Add(lecture);
                 try
                 {
@@ -44,6 +54,31 @@ namespace QRAttend.Controllers
             }
             return BadRequest("Lecture Object is not Valid !!!");
         }
+        [HttpGet]
+        public IActionResult GetLecture()
+        {
+            var currentUser = userManager.GetUserAsync(User).Result;
+            if (currentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            List<Lecture> lectures = context.Lectures
+                .Where(d => d.DoctorId == currentUser.Id)
+                .ToList();
+
+            if (lectures.Count == 0)
+            {
+                return NotFound("No lectures found for the current user.");
+            }
+
+            List<LectureDto> lectureDtos = lectures
+                .Select(lec => new LectureDto { Title = lec.Title })
+                .ToList();
+
+            return Ok(lectureDtos);
+        }
+
         [HttpGet("{Id:int}")]
         public IActionResult LectureDetails(int Id)
         {
