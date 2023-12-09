@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRAttend", "QRAttend\QRAttend.csproj", "{F69389E7-3CCD-4604-86DC-7B2289E0EADF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F69389E7-3CCD-4604-86DC-7B2289E0EADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69389E7-3CCD-4604-86DC-7B2289E0EADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69389E7-3CCD-4604-86DC-7B2289E0EADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69389E7-3CCD-4604-86DC-7B2289E0EADF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7FCFA2DD-A991-4EE4-B472-750EEA4F7314}
+	EndGlobalSection
+EndGlobal
