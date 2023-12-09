@@ -11,7 +11,7 @@ namespace QRAttend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   // [Authorize]
+    [Authorize]
     public class LectureController : ControllerBase
     {
         private readonly QRContext context;
