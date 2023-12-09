@@ -11,7 +11,7 @@ namespace QRAttend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class LectureController : ControllerBase
     {
         private readonly QRContext context;
@@ -23,11 +23,11 @@ namespace QRAttend.Controllers
             userManager = _userManager;
         }
         [HttpPost("postlecture")]
-        public IActionResult PostLecture(LectureDto lectureDto)
+        public async Task<IActionResult> PostLecture(LectureDto lectureDto)
         {
             if (ModelState.IsValid)
             {
-                var currentUser=userManager.GetUserAsync(User).Result;
+                var currentUser=await userManager.GetUserAsync(User);
                 if (currentUser == null)
                 {
                     return Unauthorized();
@@ -55,9 +55,9 @@ namespace QRAttend.Controllers
             return BadRequest("Lecture Object is not Valid !!!");
         }
         [HttpGet]
-        public IActionResult GetLecture()
+        public async Task<IActionResult> GetLecture()
         {
-            var currentUser = userManager.GetUserAsync(User).Result;
+            var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null)
             {
                 return Unauthorized();
@@ -73,7 +73,7 @@ namespace QRAttend.Controllers
             }
 
             List<LectureDto> lectureDtos = lectures
-                .Select(lec => new LectureDto { Title = lec.Title })
+                .Select(lec => new LectureDto { Title = lec.Title,LectureId=lec.Id})
                 .ToList();
 
             return Ok(lectureDtos);
