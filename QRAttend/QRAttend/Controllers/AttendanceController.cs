@@ -21,10 +21,16 @@ namespace QRAttend.Controllers
         {
             if (ModelState.IsValid)
             {
+                var std = context.Students.Where(s => s.UniversityId == attendanceDto.UniversityStudentId).FirstOrDefault();
+                if (std == null)
+                {
+                    return NotFound("Student not found with the specified UniversityId.");
+                }
+            
                 bool attendanceExists = context.Attendances
                  .Any(a => a.LectureId == attendanceDto.LectureId &&
                  a.MacAddressStudent == attendanceDto.MacAddressStudent ||
-                a.StudentId == attendanceDto.StudentId);
+                a.StudentId == std.Id);
 
                 if (attendanceExists)
                 {
@@ -36,7 +42,7 @@ namespace QRAttend.Controllers
                     MacAddressStudent = attendanceDto.MacAddressStudent,
                     CurrentDate = DateTime.Now,
                     LectureId = attendanceDto.LectureId,
-                    StudentId = attendanceDto.StudentId
+                    StudentId = std.Id
                 };
                 context.Attendances.Add(attendance);
                 try
