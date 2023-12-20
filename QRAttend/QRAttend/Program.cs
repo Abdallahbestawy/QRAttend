@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using QRAttend.Models;
 using System.Text;
@@ -43,6 +45,13 @@ builder.Services.AddAuthentication(option =>
             IssuerSigningKey= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
         };
     });
+builder.Services.AddCors(corsOptions =>
+{
+    corsOptions.AddPolicy("Policy", CorsPolicyBuilder =>
+    {
+        CorsPolicyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
 
 
 var app = builder.Build();
@@ -55,6 +64,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("Policy");
 app.UseAuthentication();
 
 app.UseAuthorization();

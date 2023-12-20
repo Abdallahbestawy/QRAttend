@@ -24,7 +24,7 @@ namespace QRAttend.Controllers
             userManager = _userManager;
             configuration = _configuration;
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> Registration(RegisterUserDto userDto ) 
         {

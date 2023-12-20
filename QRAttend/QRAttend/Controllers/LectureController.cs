@@ -78,6 +78,53 @@ namespace QRAttend.Controllers
 
             return Ok(lectureDtos);
         }
+        [HttpGet("getstudentlectures/{universityId}")]
+        public async Task<IActionResult> GetStudentLectures(string universityId)
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            var student = context.Students.FirstOrDefault(s => s.UniversityId == universityId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            List<Lecture> lectures = context.Lectures
+                .Where(d => d.DoctorId == currentUser.Id)
+                .ToList();
+
+            if (lectures.Count == 0)
+            {
+                return NotFound("No lectures found");
+            }
+
+            List<StudentLecturesDTO> lectureDtos = new List<StudentLecturesDTO>();
+
+            foreach (var lecture in lectures)
+            {
+                var attend = context.Attendances
+                    .Include(a => a.Lecture)  
+                    .Where(a => a.LectureId == lecture.Id && a.StudentId == student.Id)
+                    .FirstOrDefault();
+
+                if (attend != null)
+                {
+                    var lec = new StudentLecturesDTO
+                    {
+                        Date = attend.CurrentDate,
+                        Title = attend.Lecture.Title
+                    };
+                    lectureDtos.Add(lec);
+                }
+            }
+
+            return Ok(lectureDtos);
+        }
+
 
         [HttpGet("{Id:int}")]
         public IActionResult LectureDetails(int Id)
@@ -92,14 +139,13 @@ namespace QRAttend.Controllers
                 return NotFound("No lecture found with the given ID.");
             }
 
-            var lectureDetails = new LectureDetailsDto
+            var studentsList = lecture.Attendances.Select(a => new StudentsDTO
             {
-                LectureTitle = lecture.Title,
-                StudentName = lecture.Attendances.Select(a => a.Student.Name).ToList(),
-                StudentUniversityId = lecture.Attendances.Select(a => a.Student.UniversityId).ToList()
-            };
+                StudentName = a.Student.Name,
+                StudentId = a.Student.UniversityId
+            }).ToList();
 
-            return Ok(lectureDetails);
+            return Ok(studentsList);
         }
 
     }

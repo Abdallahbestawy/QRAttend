@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj": {}
+    "C:\\Users\\Mohamed_AbdAllA\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj": {}
   },
   "projects": {
-    "E:\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj": {
+    "C:\\Users\\Mohamed_AbdAllA\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
+        "projectUniqueName": "C:\\Users\\Mohamed_AbdAllA\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
         "projectName": "QRAttend",
-        "projectPath": "E:\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
-        "packagesPath": "C:\\Users\\ABDAL\\.nuget\\packages\\",
-        "outputPath": "E:\\QRAttend\\QRAttend\\QRAttend\\obj\\",
+        "projectPath": "C:\\Users\\Mohamed_AbdAllA\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
+        "packagesPath": "C:\\Users\\Mohamed_AbdAllA\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mohamed_AbdAllA\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ABDAL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Mohamed_AbdAllA\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -90,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

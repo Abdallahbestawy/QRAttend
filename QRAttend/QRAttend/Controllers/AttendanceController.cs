@@ -26,11 +26,14 @@ namespace QRAttend.Controllers
                 {
                     return NotFound("Student not found with the specified UniversityId.");
                 }
-            
+
                 bool attendanceExists = context.Attendances
-                 .Any(a => a.LectureId == attendanceDto.LectureId &&
-                 a.MacAddressStudent == attendanceDto.MacAddressStudent ||
-                a.StudentId == std.Id);
+                    .Any(a => a.LectureId == attendanceDto.LectureId &&
+                    a.MacAddressStudent == attendanceDto.MacAddressStudent && a.StudentId == std.Id ||
+                    a.LectureId == attendanceDto.LectureId &&
+                    a.MacAddressStudent == attendanceDto.MacAddressStudent ||
+                    a.LectureId == attendanceDto.LectureId &&
+                    a.StudentId == std.Id);
 
                 if (attendanceExists)
                 {
