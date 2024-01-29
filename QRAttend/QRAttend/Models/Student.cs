@@ -10,6 +10,8 @@ namespace QRAttend.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string UniversityId { get; set; }
+        public string? Token { get; set; }
         public List<Attendance> Attendances { get; set; }
+        public List<StudentCourse> StudentCourses { get; set; }
     }
 }

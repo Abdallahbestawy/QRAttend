@@ -12,7 +12,10 @@ namespace QRAttend.Models
         public DateTime? Date { get; set; }
         [ForeignKey("User")]
         public string DoctorId { get; set; }
+        [ForeignKey("Course")]
+        public int CourseId { get; set; }
         public ApplicationUser User { get; set; }
+        public Course Course { get; set; }
         public List<Attendance> Attendances { get; set; }
     }
 }

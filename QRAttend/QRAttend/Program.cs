@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using QRAttend.Models;
+using QRAttend.Repositories;
+using QRAttend.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,6 +54,7 @@ builder.Services.AddCors(corsOptions =>
         CorsPolicyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 });
+builder.Services.AddScoped<IStudentRepo, StudentRepo>();
 
 
 var app = builder.Build();
