@@ -5,7 +5,7 @@ namespace QRAttend.Dto
 {
     public class AttendanceDto
     {
-        public string MacAddressStudent { get; set; }
+        public string token { get; set; }
         public string UniversityStudentId { get; set; }
        
         public int LectureId { get; set; }

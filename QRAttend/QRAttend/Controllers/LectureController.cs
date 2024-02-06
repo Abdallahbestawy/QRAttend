@@ -35,6 +35,7 @@ namespace QRAttend.Controllers
                 var lecture = new Lecture()
                 {
                     Title = lectureDto.Title,
+                    CourseId = lectureDto.CourseId,
                     Date = DateTime.Now,
                 };
                 lecture.DoctorId = currentUser.Id;  
@@ -55,7 +56,7 @@ namespace QRAttend.Controllers
             return BadRequest("Lecture Object is not Valid !!!");
         }
         [HttpGet]
-        public async Task<IActionResult> GetLecture()
+        public async Task<IActionResult> GetLecture(int courseId)
         {
             var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null)
@@ -64,7 +65,7 @@ namespace QRAttend.Controllers
             }
 
             List<Lecture> lectures = context.Lectures
-                .Where(d => d.DoctorId == currentUser.Id)
+                .Where(d => d.DoctorId == currentUser.Id && d.CourseId == courseId)
                 .ToList();
 
             if (lectures.Count == 0)

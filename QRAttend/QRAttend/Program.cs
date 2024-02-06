@@ -55,6 +55,7 @@ builder.Services.AddCors(corsOptions =>
     });
 });
 builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+builder.Services.AddScoped<ICourseRepo, CourseRepo>();
 
 
 var app = builder.Build();

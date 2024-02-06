@@ -9,5 +9,7 @@ namespace QRAttend.Dto
         public int? LectureId { get; set; }
         [Required]
         public string Title { get; set; }
+
+        public int CourseId { get; set; }
     }
 }
