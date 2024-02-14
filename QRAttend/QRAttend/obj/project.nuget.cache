@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+TmfRGdlspDd8dJZYMsLbgxR97L1MSHdK6apqnMg1hy7cQQmOZ8SjpRme4hxOfPBTc9y/s/NF1Djyo8wUIa+7w==",
+  "dgSpecHash": "6GHCobZCeb4+dz0vl6mJk403CuctDwXyKd3vvFPJF7YXj0kXAzOQrWN/e7Rm3TJHUL4AR4cR7ks5tH0PSlp3Rw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Mohamed\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.25\\microsoft.aspnetcore.authentication.jwtbearer.6.0.25.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.25\\microsoft.aspnetcore.cryptography.internal.6.0.25.nupkg.sha512",

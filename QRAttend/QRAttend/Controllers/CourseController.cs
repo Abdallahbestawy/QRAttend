@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using QRAttend.Dto;
 using QRAttend.Models;
 using QRAttend.Repositories;
+using QRAttend.Settings;
 
 namespace QRAttend.Controllers
 {
@@ -56,6 +57,7 @@ namespace QRAttend.Controllers
             }
             if (result != null)
             {
+                //return Ok(_response.CreateResponse(200, true, "Data Fetched Successfully", null, result));
                 return Ok(result);
             }
             return BadRequest();

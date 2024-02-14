@@ -39,8 +39,6 @@ namespace QRAttend.Controllers
         }
 
         [HttpGet("AutoPrepare/{universityId}")]
-        
-
         public IActionResult AutoPrepare(string universityId)
         {
             var student = context.Students.FirstOrDefault(s => s.UniversityId == universityId);
@@ -53,6 +51,28 @@ namespace QRAttend.Controllers
             if (student.Token != null)
             {
                 return NotFound("Already Prepared");
+            }
+
+            string token = studentRepo.AddToken(student);
+
+            // Hash the token using SHA-256
+
+            // Optionally, you can store the hashed token in the database
+            student.Token = token;
+            context.SaveChanges();
+            string hashedToken = HashToken(token);
+
+            return Ok(hashedToken);
+        }
+        [Authorize]
+        [HttpGet("ForcePrepare/{universityId}")]
+        public IActionResult ForcePrepare(string universityId)
+        {
+            var student = context.Students.FirstOrDefault(s => s.UniversityId == universityId);
+
+            if (student == null)
+            {
+                return NotFound();
             }
 
             string token = studentRepo.AddToken(student);
@@ -85,14 +105,14 @@ namespace QRAttend.Controllers
         }
 
         [HttpPost("CheckToken")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> CheckToken(AttendanceDto input)
         {
-            var currentUser = await userManager.GetUserAsync(User);
-            if (currentUser == null)
-            {
-                return Unauthorized();
-            }
+            //var currentUser = await userManager.GetUserAsync(User);
+            //if (currentUser == null)
+            //{
+            //    return Unauthorized();
+            //}
             var student = context.Students.FirstOrDefault(s => s.UniversityId == input.UniversityStudentId);
 
             if (student == null)
