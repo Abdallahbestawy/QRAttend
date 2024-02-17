@@ -2479,19 +2479,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mohamed\\.nuget\\packages\\": {}
+    "C:\\Users\\youssef\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
+      "projectUniqueName": "E:\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
       "projectName": "QRAttend",
-      "projectPath": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
-      "packagesPath": "C:\\Users\\Mohamed\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend\\obj\\",
+      "projectPath": "E:\\QRAttend\\QRAttend\\QRAttend\\QRAttend.csproj",
+      "packagesPath": "C:\\Users\\youssef\\.nuget\\packages\\",
+      "outputPath": "E:\\QRAttend\\QRAttend\\QRAttend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mohamed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\youssef\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2511,6 +2511,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2567,7 +2572,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

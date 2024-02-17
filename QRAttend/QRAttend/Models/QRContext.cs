@@ -14,5 +14,7 @@ namespace QRAttend.Models
         public DbSet<AcademicYear> AcademicYears { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
+        public DbSet<SectionAttendance> SectionAttendances { get; set; }
+        public DbSet<Section> Sections { get; set; }
     }
 }

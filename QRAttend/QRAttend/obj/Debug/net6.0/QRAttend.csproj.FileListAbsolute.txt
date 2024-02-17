@@ -19,7 +19,6 @@ E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.MvcApplicationPartsAssem
 E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets.build.json
 E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets.development.json
 E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\scopedcss\bundle\QRAttend.styles.css
-E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.csproj.CopyComplete
 E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.dll
 E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\refint\QRAttend.dll
 E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.pdb
@@ -217,3 +216,11 @@ C:\Users\Mohamed\source\repos\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAtte
 C:\Users\Mohamed\source\repos\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.genruntimeconfig.cache
 C:\Users\Mohamed\source\repos\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\ref\QRAttend.dll
 C:\Users\Mohamed\source\repos\QRAttend\QRAttend\QRAttend\bin\Debug\net6.0\AutoMapper.dll
+E:\QRAttend\QRAttend\QRAttend\bin\Debug\net6.0\AutoMapper.dll
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.sourcelink.json
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets\msbuild.QRAttend.Microsoft.AspNetCore.StaticWebAssets.props
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets\msbuild.build.QRAttend.props
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.QRAttend.props
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.QRAttend.props
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\staticwebassets.pack.json
+E:\QRAttend\QRAttend\QRAttend\obj\Debug\net6.0\QRAttend.csproj.Up2Date
