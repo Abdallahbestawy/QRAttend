@@ -13,5 +13,6 @@ namespace QRAttend.Models
         public string? Token { get; set; }
         public List<Attendance> Attendances { get; set; }
         public List<StudentCourse> StudentCourses { get; set; }
+        public List<StudentSection> studentSections { get; set; }
     }
 }

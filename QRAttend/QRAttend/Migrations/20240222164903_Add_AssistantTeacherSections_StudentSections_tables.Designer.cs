@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QRAttend.Models;
 
@@ -11,9 +12,10 @@ using QRAttend.Models;
 namespace QRAttend.Migrations
 {
     [DbContext(typeof(QRContext))]
-    partial class QRContextModelSnapshot : ModelSnapshot
+    [Migration("20240222164903_Add_AssistantTeacherSections_StudentSections_tables")]
+    partial class Add_AssistantTeacherSections_StudentSections_tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

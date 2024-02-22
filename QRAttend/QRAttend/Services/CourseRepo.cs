@@ -31,7 +31,7 @@ namespace QRAttend.Services
 
         public async Task<List<Course>> GetByTeacherId(string Id)
         {
-            return await context.Courses.Where(c => c.TeacherId == Id).ToListAsync();
+             return await context.Courses.Where(c => c.TeacherId == Id && c.AcademicYear.IsCurrent == true).ToListAsync();
         }
 
         public void Update(Course course)

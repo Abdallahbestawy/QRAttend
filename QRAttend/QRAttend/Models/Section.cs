@@ -18,6 +18,8 @@ namespace QRAttend.Models
         public ApplicationUser User { get; set; }
         public Course Course { get; set; }
         public List<SectionAttendance> SectionAttendances { get; set; }
+        public List<AssistantTeacherSection> assistantTeacherSections { get; set; }
+        public List<StudentSection> studentSections { get; set; }
     }
 }
 
