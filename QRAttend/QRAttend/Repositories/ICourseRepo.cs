@@ -13,5 +13,6 @@ namespace QRAttend.Repositories
         void Update(Course course);
 
         void Delete(Course course);
+        public List<Course> GetByAssistantTeacherId(string Id);
     }
 }

@@ -50,9 +50,12 @@ namespace QRAttend.Services
             throw new NotImplementedException();
         }
 
-        public Student GetByUnverstyId(string unverstyId)
+        public Student? GetByUnverstyId(string unverstyId)
         {
-            throw new NotImplementedException();
+            var student = context.Students.FirstOrDefault(std=>std.UniversityId == unverstyId);
+            if (student == null)
+                return null;
+            return student;
         }
 
         public void Update(Student student)

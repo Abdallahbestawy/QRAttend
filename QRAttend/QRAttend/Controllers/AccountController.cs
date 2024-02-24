@@ -34,6 +34,7 @@ namespace QRAttend.Controllers
                 user.UserName = userDto.UserName;
                 user.Email = userDto.Email;
                 IdentityResult result=await userManager.CreateAsync(user,userDto.Password);
+                await userManager.AddToRoleAsync(user, "User");
                 if (result.Succeeded)
                 {
                     return Ok("Account Add Succeeded");
@@ -53,10 +54,24 @@ namespace QRAttend.Controllers
                     bool found = await userManager.CheckPasswordAsync(user, userDto.Password);
                     if (found)
                     {
+                        var flag = false;
+                        var userRoles = await userManager.GetRolesAsync(user);
                         var claims = new List<Claim>();
+                        if (userRoles != null)
+                        {
+                            foreach (var userRole in userRoles)
+                            {
+                                if(userRole == userDto.RoleName)
+                                    flag = true;
+                                claims.Add(new Claim(ClaimTypes.Role, userRole));
+                            }
+                        }
+                        if (!flag)
+                            return Unauthorized();
                         claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
                         claims.Add(new Claim(ClaimTypes.Name, user.UserName));
                         claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+                        
                         SecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
 
                         SigningCredentials signing =

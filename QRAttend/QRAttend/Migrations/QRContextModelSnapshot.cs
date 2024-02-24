@@ -248,7 +248,7 @@ namespace QRAttend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("SectionId")
+                    b.Property<int>("SectionGroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("TeacherId")
@@ -257,7 +257,7 @@ namespace QRAttend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SectionId");
+                    b.HasIndex("SectionGroupId");
 
                     b.HasIndex("TeacherId");
 
@@ -363,11 +363,11 @@ namespace QRAttend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("SectionGroupId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -377,7 +377,7 @@ namespace QRAttend.Migrations
 
                     b.HasIndex("AssistantTeacherId");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("SectionGroupId");
 
                     b.ToTable("Sections");
                 });
@@ -404,6 +404,28 @@ namespace QRAttend.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("SectionAttendances");
+                });
+
+            modelBuilder.Entity("QRAttend.Models.SectionGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("SectionGroups");
                 });
 
             modelBuilder.Entity("QRAttend.Models.Student", b =>
@@ -461,7 +483,7 @@ namespace QRAttend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("SectionId")
+                    b.Property<int>("SectionGroupId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentId")
@@ -469,7 +491,7 @@ namespace QRAttend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SectionId");
+                    b.HasIndex("SectionGroupId");
 
                     b.HasIndex("StudentId");
 
@@ -529,9 +551,9 @@ namespace QRAttend.Migrations
 
             modelBuilder.Entity("QRAttend.Models.AssistantTeacherSection", b =>
                 {
-                    b.HasOne("QRAttend.Models.Section", "Section")
+                    b.HasOne("QRAttend.Models.SectionGroup", "sectionGroup")
                         .WithMany("assistantTeacherSections")
-                        .HasForeignKey("SectionId")
+                        .HasForeignKey("SectionGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -541,9 +563,9 @@ namespace QRAttend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Section");
-
                     b.Navigation("User");
+
+                    b.Navigation("sectionGroup");
                 });
 
             modelBuilder.Entity("QRAttend.Models.Attendance", b =>
@@ -611,15 +633,15 @@ namespace QRAttend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QRAttend.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
+                    b.HasOne("QRAttend.Models.SectionGroup", "sectionGroup")
+                        .WithMany("Sections")
+                        .HasForeignKey("SectionGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
-
                     b.Navigation("User");
+
+                    b.Navigation("sectionGroup");
                 });
 
             modelBuilder.Entity("QRAttend.Models.SectionAttendance", b =>
@@ -639,6 +661,17 @@ namespace QRAttend.Migrations
                     b.Navigation("Section");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("QRAttend.Models.SectionGroup", b =>
+                {
+                    b.HasOne("QRAttend.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("QRAttend.Models.StudentCourse", b =>
@@ -662,9 +695,9 @@ namespace QRAttend.Migrations
 
             modelBuilder.Entity("QRAttend.Models.StudentSection", b =>
                 {
-                    b.HasOne("QRAttend.Models.Section", "Section")
+                    b.HasOne("QRAttend.Models.SectionGroup", "sectionGroup")
                         .WithMany("studentSections")
-                        .HasForeignKey("SectionId")
+                        .HasForeignKey("SectionGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -674,9 +707,9 @@ namespace QRAttend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Section");
-
                     b.Navigation("Student");
+
+                    b.Navigation("sectionGroup");
                 });
 
             modelBuilder.Entity("QRAttend.Models.AcademicYear", b =>
@@ -699,6 +732,11 @@ namespace QRAttend.Migrations
             modelBuilder.Entity("QRAttend.Models.Section", b =>
                 {
                     b.Navigation("SectionAttendances");
+                });
+
+            modelBuilder.Entity("QRAttend.Models.SectionGroup", b =>
+                {
+                    b.Navigation("Sections");
 
                     b.Navigation("assistantTeacherSections");
 

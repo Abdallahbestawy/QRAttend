@@ -18,6 +18,6 @@ namespace QRAttend.Models
         public DbSet<Section> Sections { get; set; }
         public DbSet<AssistantTeacherSection> AssistantTeacherSections { get; set; }
         public DbSet<StudentSection> StudentSections { get; set; }
-
+        public DbSet<SectionGroup> SectionGroups { get; set; }
     }
 }

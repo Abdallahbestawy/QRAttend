@@ -9,9 +9,9 @@ namespace QRAttend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey("Section")]
-        public int SectionId { get; set; }
-        public Section Section { get; set; }
+        [ForeignKey("sectionGroup")]
+        public int SectionGroupId { get; set; }
+        public SectionGroup sectionGroup { get; set; }
 
         [ForeignKey("Student")]
         public int StudentId { get; set; }

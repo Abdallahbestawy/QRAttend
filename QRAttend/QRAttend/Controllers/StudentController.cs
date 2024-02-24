@@ -64,7 +64,7 @@ namespace QRAttend.Controllers
 
             return Ok(hashedToken);
         }
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [HttpGet("ForcePrepare/{universityId}")]
         public IActionResult ForcePrepare(string universityId)
         {

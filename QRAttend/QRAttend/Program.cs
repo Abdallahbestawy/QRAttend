@@ -57,6 +57,10 @@ builder.Services.AddCors(corsOptions =>
 });
 builder.Services.AddScoped<IStudentRepo, StudentRepo>();
 builder.Services.AddScoped<ICourseRepo, CourseRepo>();
+builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<ISectionRepo, SectionRepo>();
+builder.Services.AddTransient<ISectionGroupRepo, SectionGroupRepo>();
+builder.Services.AddTransient<ISectionAttendanceRepo, QRAttend.Services.SectionAttendanceRepo>();
 
 
 var app = builder.Build();

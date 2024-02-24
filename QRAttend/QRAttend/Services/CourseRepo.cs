@@ -34,6 +34,15 @@ namespace QRAttend.Services
              return await context.Courses.Where(c => c.TeacherId == Id && c.AcademicYear.IsCurrent == true).ToListAsync();
         }
 
+        public List<Course> GetByAssistantTeacherId(string Id)
+        {
+            var assistantGroups = context.AssistantTeacherSections.Where(assist => assist.TeacherId == Id).Select(grp=> grp.SectionGroupId).ToList();
+
+            var courses = context.SectionGroups.Where(sec => assistantGroups.Contains(sec.Id) && sec.Course.AcademicYear.IsCurrent == true).Select(grp => grp.Course).Distinct().ToList();
+
+            return courses;
+        }
+
         public void Update(Course course)
         {
             throw new NotImplementedException();

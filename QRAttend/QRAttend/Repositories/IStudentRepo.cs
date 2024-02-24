@@ -6,7 +6,7 @@ namespace QRAttend.Repositories
     {
         void Create(Student student);
 
-        Student GetByUnverstyId(string unverstyId);
+        Student? GetByUnverstyId(string unverstyId);
 
         void Update(Student student);
 

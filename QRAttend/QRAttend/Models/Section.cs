@@ -11,15 +11,15 @@ namespace QRAttend.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime? Date { get; set; }
+
+        [ForeignKey("sectionGroup")]
+        public int SectionGroupId { get; set; }
+        public SectionGroup sectionGroup { get; set; }
+
         [ForeignKey("User")]
         public string AssistantTeacherId { get; set; }
-        [ForeignKey("Course")]
-        public int CourseId { get; set; }
         public ApplicationUser User { get; set; }
-        public Course Course { get; set; }
         public List<SectionAttendance> SectionAttendances { get; set; }
-        public List<AssistantTeacherSection> assistantTeacherSections { get; set; }
-        public List<StudentSection> studentSections { get; set; }
     }
 }
 

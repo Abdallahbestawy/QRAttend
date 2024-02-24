@@ -13,8 +13,8 @@ namespace QRAttend.Models
         public string TeacherId { get; set; }
         public ApplicationUser User { get; set; }
 
-        [ForeignKey("Section")]
-        public int SectionId { get; set; }
-        public Section Section { get; set; }
+        [ForeignKey("sectionGroup")]
+        public int SectionGroupId { get; set; }
+        public SectionGroup sectionGroup { get; set; }
     }
 }
