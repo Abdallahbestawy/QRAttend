@@ -10,5 +10,6 @@ namespace QRAttend.Repositories
         bool IsExsit(SectionAttendance attendance);
         List<StudentsDTO>? GetSudentsBySectionId(int sectionId);
         bool CheckStudentInSection(StudentSectionDTO studentSectionDTO);
+        List<StudentLecturesDTO>? GetStudentSections(StudentSectionsByGroupDTO model);
     }
 }

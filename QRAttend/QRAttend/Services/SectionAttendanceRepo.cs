@@ -43,6 +43,21 @@ namespace QRAttend.Services
             return result;
         }
 
+        public List<StudentLecturesDTO>? GetStudentSections(StudentSectionsByGroupDTO model)
+        {
+            var student = _context.Students.FirstOrDefault(std => std.UniversityId == model.UniversityId);
+            var sections = _context.Sections.Where(sec=>sec.SectionGroupId == model.groupId).Select(sec=>sec.Id).ToList();
+            var attendances = _context.SectionAttendances.Where(attend => attend.StudentId == student.Id && sections.Contains(attend.SectionId))
+                .Select(attends => new StudentLecturesDTO
+                {
+                    Date = attends.CurrentDate,
+                    Title = attends.Section.Title
+                }).ToList();
+            if (attendances.Count == 0)
+                return null;
+            return attendances;
+        }
+
         public List<StudentsDTO>? GetSudentsBySectionId(int sectionId)
         {
             var students = _context.SectionAttendances.Where(std => std.SectionId == sectionId).Select(std => new StudentsDTO

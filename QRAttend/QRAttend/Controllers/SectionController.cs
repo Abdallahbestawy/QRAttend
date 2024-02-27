@@ -84,6 +84,13 @@ namespace QRAttend.Controllers
             return Ok(_sectionAttendanceRepo.GetSudentsBySectionId(sectionId));
         }
 
+        [HttpGet("GetStudentSections")]
+        [AllowAnonymous]
+        public IActionResult GetStudentSections([FromQuery] StudentSectionsByGroupDTO model)
+        {
+            return Ok(_sectionAttendanceRepo.GetStudentSections(model));
+        }
+
         [HttpGet("CheckStudentInSection")]
         [AllowAnonymous]
         public async Task<IActionResult> CheckStudentInSection([FromQuery] StudentSectionDTO studentSectionDTO)
