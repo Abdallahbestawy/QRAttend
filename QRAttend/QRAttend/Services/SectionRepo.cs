@@ -1,4 +1,5 @@
-﻿using QRAttend.Dto;
+﻿using Microsoft.EntityFrameworkCore;
+using QRAttend.Dto;
 using QRAttend.Models;
 using QRAttend.Repositories;
 
@@ -13,19 +14,19 @@ namespace QRAttend.Services
             _context = context;
         }
 
-        public int CreateSection(Section section)
+        public async Task<int> CreateSection(Section section)
         {
-            _context.Sections.Add(section);
-            var result = _context.SaveChanges();
+            await _context.Sections.AddAsync(section);
+            var result = await _context.SaveChangesAsync();
             return result;
         }
 
-        public List<SectionDto>? GetAllSections()
+        public async Task<List<SectionDto>>? GetAllSections()
         {
-            var result = _context.Sections.ToList();
+            var result = await _context.Sections.ToListAsync();
             if(result ==  null)
                 return null;
-            return (List<SectionDto>)result.Select(sec => new SectionDto
+            return result.Select(sec => new SectionDto
             {
                 SectionId = sec.Id,
                 Title = sec.Title,
@@ -33,9 +34,9 @@ namespace QRAttend.Services
             }).ToList();
         }
 
-        public SectionDto? GetSectionById(int id)
+        public async Task<SectionDto>? GetSectionById(int id)
         {
-            var result = _context.Sections.FirstOrDefault(Section => Section.Id == id);
+            var result = await _context.Sections.FirstOrDefaultAsync(Section => Section.Id == id);
             if(result == null)
                 return null;
             return new SectionDto
@@ -46,33 +47,32 @@ namespace QRAttend.Services
             };
         }
 
-        public List<SectionDto>? GetSectionsByAssistantTeacherId(string Id, int? courseId)
+        public async Task<List<SectionDto>>? GetSectionsByAssistantTeacherId(string Id, int? courseId)
         {
-            var courseGroupIds = _context.SectionGroups
+            var courseGroupIds = await _context.SectionGroups
                 .Where(grp => grp.CourseId == courseId)
                 .Select(grp => grp.Id)
-                .ToList();
+                .ToListAsync();
 
             if (courseGroupIds.Count == 0)
                 return null;
 
-            var assistantGroups = _context.AssistantTeacherSections
+            var assistantGroups = await _context.AssistantTeacherSections
                 .Where(assist => assist.TeacherId == Id && courseGroupIds.Contains(assist.SectionGroupId))
-                .ToList();
+                .ToListAsync();
 
             if (assistantGroups.Count == 0)
                 return null;
             var sectionGroupIds = assistantGroups.Select(ag => ag.SectionGroupId).ToList();
 
-            var result = _context.Sections
+            var result = await _context.Sections
                 .Where(sec => sectionGroupIds.Contains(sec.SectionGroupId))
                 .Select(sec => new SectionDto
                 {
                     SectionId = sec.Id,
                     Title = sec.Title,
                     SectionGroupId = sec.SectionGroupId
-                })
-                .ToList();
+                }).ToListAsync();
 
             if (result.Count == 0)
                 return null;
@@ -80,14 +80,14 @@ namespace QRAttend.Services
             return result;
         }
 
-        public List<SectionDto>? GetSectionsByGroupId(int? groupId)
+        public async Task<List<SectionDto>>? GetSectionsByGroupId(int? groupId)
         {
-            return _context.Sections.Where(grp=>grp.SectionGroupId == groupId).Select(group=> new SectionDto
+            return await _context.Sections.Where(grp=>grp.SectionGroupId == groupId).Select(group=> new SectionDto
             {
                 SectionId = group.Id,
                 Title = group.Title,
                 SectionGroupId = group.SectionGroupId
-            }).ToList();
+            }).ToListAsync();
         }
     }
 }

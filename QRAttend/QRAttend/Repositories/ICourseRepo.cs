@@ -6,13 +6,13 @@ namespace QRAttend.Repositories
     {
         Task<int> Create(Course course);
 
-        Course GetById(int Id);
+        Task<Course> GetById(int Id);
 
         Task<List<Course>> GetByTeacherId(string Id);
 
         void Update(Course course);
 
         void Delete(Course course);
-        public List<Course> GetByAssistantTeacherId(string Id);
+        Task<List<Course>> GetByAssistantTeacherId(string Id);
     }
 }

@@ -5,11 +5,11 @@ namespace QRAttend.Repositories
 {
     public interface ISectionAttendanceRepo
     {
-        int Create(SectionAttendance section);
-        List<SectionAttendanceDto> GetBySectionId(int id);
-        bool IsExsit(SectionAttendance attendance);
-        List<StudentsDTO>? GetSudentsBySectionId(int sectionId);
-        bool CheckStudentInSection(StudentSectionDTO studentSectionDTO);
-        List<StudentLecturesDTO>? GetStudentSections(StudentSectionsByGroupDTO model);
+        Task<int> Create(SectionAttendance attendance);
+        Task<List<SectionAttendanceDto>> GetBySectionId(int id);
+        Task<bool> IsExsit(SectionAttendance attendance);
+        Task<List<StudentsDTO>>? GetSudentsBySectionId(int sectionId);
+        Task<bool> CheckStudentInSection(StudentSectionDTO studentSectionDTO);
+        Task<List<StudentLecturesDTO>>? GetStudentSections(StudentSectionsByGroupDTO model);
     }
 }

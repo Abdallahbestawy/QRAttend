@@ -39,7 +39,7 @@ namespace QRAttend.Controllers
         }
 
         [HttpGet("AutoPrepare/{universityId}")]
-        public IActionResult AutoPrepare(string universityId)
+        public async Task<IActionResult> AutoPrepare(string universityId)
         {
             var student = context.Students.FirstOrDefault(s => s.UniversityId == universityId);
 
@@ -53,7 +53,7 @@ namespace QRAttend.Controllers
                 return NotFound("Already Prepared");
             }
 
-            string token = studentRepo.AddToken(student);
+            string token = await studentRepo.AddToken(student);
 
             // Hash the token using SHA-256
 
@@ -66,7 +66,7 @@ namespace QRAttend.Controllers
         }
         [Authorize(Roles ="Admin")]
         [HttpGet("ForcePrepare/{universityId}")]
-        public IActionResult ForcePrepare(string universityId)
+        public async Task<IActionResult> ForcePrepare(string universityId)
         {
             var student = context.Students.FirstOrDefault(s => s.UniversityId == universityId);
 
@@ -75,7 +75,7 @@ namespace QRAttend.Controllers
                 return NotFound();
             }
 
-            string token = studentRepo.AddToken(student);
+            string token = await studentRepo.AddToken(student);
 
             // Hash the token using SHA-256
 

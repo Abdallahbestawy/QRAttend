@@ -27,13 +27,13 @@ namespace QRAttend.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult Create(SectionAttendanceDto sectionAttendance)
+        public async Task<IActionResult> Create(SectionAttendanceDto sectionAttendance)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var student = _studentRepo.GetByUnverstyId(sectionAttendance.UniversityStudentId);
+            var student = await _studentRepo.GetByUnverstyId(sectionAttendance.UniversityStudentId);
             if (student == null)
             {
                 return BadRequest("Student Not Exsit");
@@ -42,19 +42,19 @@ namespace QRAttend.Controllers
             {
                 return NotFound("Invalid Token");
             }
-            var exsitInGroup = _sectionGroupRepo.CheckStudentInGroup(student.Id, sectionAttendance.SectionId);
+            var exsitInGroup = await _sectionGroupRepo.CheckStudentInGroup(student.Id, sectionAttendance.SectionId);
             if(!exsitInGroup)
             {
                 return BadRequest("Student Doesn't Exsit in this Group");
             }
-            var isExsit = _sectionAttendance.IsExsit(new SectionAttendance
+            var isExsit = await _sectionAttendance.IsExsit(new SectionAttendance
             {
                 StudentId = student.Id,
                 SectionId = sectionAttendance.SectionId
             });
             if(isExsit)
                 return BadRequest("Attent is already Exsit");
-            var result = _sectionAttendance.Create(new SectionAttendance
+            var result = await _sectionAttendance.Create(new SectionAttendance
             {
                 SectionId = sectionAttendance.SectionId,
                 StudentId = student.Id,

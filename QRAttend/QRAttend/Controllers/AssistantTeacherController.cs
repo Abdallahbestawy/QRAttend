@@ -31,7 +31,7 @@ namespace QRAttend.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
                 return Unauthorized();
-            var courses = _courseRepo.GetByAssistantTeacherId(currentUser.Id);
+            var courses = await _courseRepo.GetByAssistantTeacherId(currentUser.Id);
             List<CourseDTO> result = new List<CourseDTO>();
             foreach (var course in courses)
             {
@@ -46,7 +46,7 @@ namespace QRAttend.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
                 return Unauthorized();
-            var groups = _sectionGroupRepo.GetAllSectionGroupByAssistantTeacherId(currentUser.Id,courseId);
+            var groups = await _sectionGroupRepo.GetAllSectionGroupByAssistantTeacherId(currentUser.Id,courseId);
             if(groups == null)
                 return BadRequest();
             List<SectionGroupDTO> result = new List<SectionGroupDTO>();

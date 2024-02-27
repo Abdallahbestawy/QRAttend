@@ -1,4 +1,5 @@
-﻿using QRAttend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using QRAttend.Models;
 using QRAttend.Repositories;
 
 namespace QRAttend.Services
@@ -11,13 +12,13 @@ namespace QRAttend.Services
         {
             context = _context;
         }
-        public string AddToken(Student student)
+        public async Task<string> AddToken(Student student)
         {
             if (student.Token == null)
             {
                 string newToken = student.UniversityId + '1';
                 student.Token = newToken;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return newToken;
             }else
             {
@@ -32,7 +33,7 @@ namespace QRAttend.Services
                 }
                 string newToken = $"{student.UniversityId}{number + 1}";
                 student.Token = newToken;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return newToken;
             }
         }
@@ -50,9 +51,9 @@ namespace QRAttend.Services
             throw new NotImplementedException();
         }
 
-        public Student? GetByUnverstyId(string unverstyId)
+        public async Task<Student>? GetByUnverstyId(string unverstyId)
         {
-            var student = context.Students.FirstOrDefault(std=>std.UniversityId == unverstyId);
+            var student = await context.Students.FirstOrDefaultAsync(std=>std.UniversityId == unverstyId);
             if (student == null)
                 return null;
             return student;

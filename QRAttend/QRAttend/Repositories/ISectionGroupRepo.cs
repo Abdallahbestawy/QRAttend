@@ -5,10 +5,10 @@ namespace QRAttend.Repositories
 {
     public interface ISectionGroupRepo
     {
-        int CreateGroup(SectionGroup sectionGroup);
-        SectionGroupDTO? GetSectionGroupById(int id);
-        List<SectionGroupDTO>? GetAllSectionGroup();
-        bool CheckStudentInGroup(int studentId, int sectionId);
-        public List<SectionGroupDTO>? GetAllSectionGroupByAssistantTeacherId(string id,int courseId);
+        Task<int> CreateGroup(SectionGroup sectionGroup);
+        Task<SectionGroupDTO>? GetSectionGroupById(int id);
+        Task<List<SectionGroupDTO>>? GetAllSectionGroup();
+        Task<bool> CheckStudentInGroup(int studentId, int sectionId);
+        Task<List<SectionGroupDTO>>? GetAllSectionGroupByAssistantTeacherId(string id, int courseId);
     }
 }

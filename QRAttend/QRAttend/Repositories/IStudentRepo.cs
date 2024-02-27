@@ -6,14 +6,12 @@ namespace QRAttend.Repositories
     {
         void Create(Student student);
 
-        Student? GetByUnverstyId(string unverstyId);
+        Task<Student>? GetByUnverstyId(string unverstyId);
 
         void Update(Student student);
 
         void Delete(Student student);
 
-        string AddToken(Student student);
-
-
+        Task<string> AddToken(Student student);
     }
 }

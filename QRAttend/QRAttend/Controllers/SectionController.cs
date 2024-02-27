@@ -33,7 +33,7 @@ namespace QRAttend.Controllers
             {
                 return Unauthorized();
             }
-            var result = _sectionRepo.CreateSection(new Section
+            var result = await _sectionRepo.CreateSection(new Section
             {
                 AssistantTeacherId = currentUser.Id,
                 SectionGroupId = section.SectionGroupId,
@@ -71,7 +71,7 @@ namespace QRAttend.Controllers
             if (currentUser == null)
                 return Unauthorized();
             
-            return Ok(_sectionRepo.GetSectionsByGroupId(groupId));
+            return Ok(await _sectionRepo.GetSectionsByGroupId(groupId));
         }
 
         [HttpGet("GetStudents/{sectionId}")]
@@ -81,21 +81,21 @@ namespace QRAttend.Controllers
             if (currentUser == null)
                 return Unauthorized();
 
-            return Ok(_sectionAttendanceRepo.GetSudentsBySectionId(sectionId));
+            return Ok(await _sectionAttendanceRepo.GetSudentsBySectionId(sectionId));
         }
 
         [HttpGet("GetStudentSections")]
         [AllowAnonymous]
-        public IActionResult GetStudentSections([FromQuery] StudentSectionsByGroupDTO model)
+        public async Task<IActionResult> GetStudentSections([FromQuery] StudentSectionsByGroupDTO model)
         {
-            return Ok(_sectionAttendanceRepo.GetStudentSections(model));
+            return Ok(await _sectionAttendanceRepo.GetStudentSections(model));
         }
 
         [HttpGet("CheckStudentInSection")]
         [AllowAnonymous]
         public async Task<IActionResult> CheckStudentInSection([FromQuery] StudentSectionDTO studentSectionDTO)
         {
-            var result = _sectionAttendanceRepo.CheckStudentInSection(studentSectionDTO);
+            var result = await _sectionAttendanceRepo.CheckStudentInSection(studentSectionDTO);
             if(result)
                 return Ok(result);
             return BadRequest();

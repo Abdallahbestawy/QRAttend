@@ -24,9 +24,9 @@ namespace QRAttend.Services
             context.Courses.Remove(course);
         }
 
-        public Course GetById(int Id)
+        public async Task<Course> GetById(int Id)
         {
-            return context.Courses.FirstOrDefault(c => c.Id == Id);
+            return await context.Courses.FirstOrDefaultAsync(c => c.Id == Id);
         }
 
         public async Task<List<Course>> GetByTeacherId(string Id)
@@ -34,11 +34,12 @@ namespace QRAttend.Services
              return await context.Courses.Where(c => c.TeacherId == Id && c.AcademicYear.IsCurrent == true).ToListAsync();
         }
 
-        public List<Course> GetByAssistantTeacherId(string Id)
+        public async Task<List<Course>> GetByAssistantTeacherId(string Id)
         {
-            var assistantGroups = context.AssistantTeacherSections.Where(assist => assist.TeacherId == Id).Select(grp=> grp.SectionGroupId).ToList();
+            var assistantGroups = await context.AssistantTeacherSections.Where(assist => assist.TeacherId == Id).Select(grp=> grp.SectionGroupId).ToListAsync();
 
-            var courses = context.SectionGroups.Where(sec => assistantGroups.Contains(sec.Id) && sec.Course.AcademicYear.IsCurrent == true).Select(grp => grp.Course).Distinct().ToList();
+            var courses = await context.SectionGroups.Where(sec => assistantGroups.Contains(sec.Id) && sec.Course.AcademicYear.IsCurrent == true)
+                .Select(grp => grp.Course).Distinct().ToListAsync();
 
             return courses;
         }

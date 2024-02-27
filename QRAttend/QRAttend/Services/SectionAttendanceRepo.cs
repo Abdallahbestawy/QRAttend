@@ -1,4 +1,5 @@
-﻿using QRAttend.Dto;
+﻿using Microsoft.EntityFrameworkCore;
+using QRAttend.Dto;
 using QRAttend.Models;
 using QRAttend.Repositories;
 using System.Security.AccessControl;
@@ -14,65 +15,65 @@ namespace QRAttend.Services
             _context = context;
         }
 
-        public bool CheckStudentInSection(StudentSectionDTO studentSectionDTO)
+        public async Task<bool> CheckStudentInSection(StudentSectionDTO studentSectionDTO)
         {
-            var stdudent = _context.Students.FirstOrDefault(std => std.UniversityId == studentSectionDTO.UniversityId);
+            var stdudent = await _context.Students.FirstOrDefaultAsync(std => std.UniversityId == studentSectionDTO.UniversityId);
             if (stdudent == null) return false;
 
-            var section = _context.Sections.FirstOrDefault(sec=>sec.Id == studentSectionDTO.SectionId);
+            var section = await _context.Sections.FirstOrDefaultAsync(sec=>sec.Id == studentSectionDTO.SectionId);
             if (section == null) return false;
 
-            var result = _context.StudentSections.Any(res=>res.SectionGroupId == section.SectionGroupId && res.StudentId == stdudent.Id);
+            var result = await _context.StudentSections.AnyAsync(res=>res.SectionGroupId == section.SectionGroupId && res.StudentId == stdudent.Id);
             return result;
         }
 
-        public int Create(SectionAttendance attendance)
+        public async Task<int> Create(SectionAttendance attendance)
         {
-            _context.SectionAttendances.Add(attendance);
-            var result = _context.SaveChanges();
+            await _context.SectionAttendances.AddAsync(attendance);
+            var result = await _context.SaveChangesAsync();
             return result;
         }
 
-        public List<SectionAttendanceDto> GetBySectionId(int id)
+        public async Task<List<SectionAttendanceDto>> GetBySectionId(int id)
         {
-            var result = _context.SectionAttendances.Where(attend => attend.SectionId == id).Select(attend => new SectionAttendanceDto
+            var result = await _context.SectionAttendances.Where(attend => attend.SectionId == id).Select(attend => new SectionAttendanceDto
             {
                 SectionId = attend.SectionId,
                 UniversityStudentId =attend.Student.UniversityId
-            }).ToList();
+            }).ToListAsync();
             return result;
         }
 
-        public List<StudentLecturesDTO>? GetStudentSections(StudentSectionsByGroupDTO model)
+        public async Task<List<StudentLecturesDTO>>? GetStudentSections(StudentSectionsByGroupDTO model)
         {
-            var student = _context.Students.FirstOrDefault(std => std.UniversityId == model.UniversityId);
-            var sections = _context.Sections.Where(sec=>sec.SectionGroupId == model.groupId).Select(sec=>sec.Id).ToList();
-            var attendances = _context.SectionAttendances.Where(attend => attend.StudentId == student.Id && sections.Contains(attend.SectionId))
+            var student = await _context.Students.FirstOrDefaultAsync(std => std.UniversityId == model.UniversityId);
+            var sections = await _context.Sections.Where(sec=>sec.SectionGroupId == model.groupId).Select(sec=>sec.Id).ToListAsync();
+            var attendances = await _context.SectionAttendances.Where(attend => attend.StudentId == student.Id && sections.Contains(attend.SectionId))
                 .Select(attends => new StudentLecturesDTO
                 {
                     Date = attends.CurrentDate,
                     Title = attends.Section.Title
-                }).ToList();
+                }).ToListAsync();
             if (attendances.Count == 0)
                 return null;
             return attendances;
         }
 
-        public List<StudentsDTO>? GetSudentsBySectionId(int sectionId)
+        public async Task<List<StudentsDTO>>? GetSudentsBySectionId(int sectionId)
         {
-            var students = _context.SectionAttendances.Where(std => std.SectionId == sectionId).Select(std => new StudentsDTO
+            var students = await _context.SectionAttendances.Where(std => std.SectionId == sectionId).Select(std => new StudentsDTO
             {
                 StudentId = std.Student.UniversityId,
                 StudentName = std.Student.Name
-            }).ToList();
+            }).ToListAsync();
             if(students.Count > 0) 
                 return students;
             return null;
         }
 
-        public bool IsExsit(SectionAttendance attendance)
+        public async Task<bool> IsExsit(SectionAttendance attendance)
         {
-            return _context.SectionAttendances.Any(attend => attend.SectionId == attendance.SectionId && attend.StudentId == attendance.StudentId);
+            return await _context.SectionAttendances.AnyAsync(attend => attend.SectionId == attendance.SectionId && attend.StudentId == attendance.StudentId);
         }
     }
 }

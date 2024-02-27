@@ -14,27 +14,27 @@ namespace QRAttend.Services
             _context = context;
         }
 
-        public bool CheckStudentInGroup(int studentId, int sectionId)
+        public async Task<bool> CheckStudentInGroup(int studentId, int sectionId)
         {
-            var group = _context.Sections.FirstOrDefault(s => s.Id == sectionId);
+            var group = await _context.Sections.FirstOrDefaultAsync(s => s.Id == sectionId);
             if (group == null)
                 return false;
-            return _context.StudentSections.Any(grp => grp.StudentId == studentId && grp.SectionGroupId == group.SectionGroupId);
+            return await _context.StudentSections.AnyAsync(grp => grp.StudentId == studentId && grp.SectionGroupId == group.SectionGroupId);
         }
 
-        public int CreateGroup(SectionGroup sectionGroup)
+        public async Task<int> CreateGroup(SectionGroup sectionGroup)
         {
-            _context.SectionGroups.Add(sectionGroup);
-            var result = _context.SaveChanges();
+            await _context.SectionGroups.AddAsync(sectionGroup);
+            var result = await _context.SaveChangesAsync();
             return result;
         }
 
-        public List<SectionGroupDTO>? GetAllSectionGroup()
+        public async Task<List<SectionGroupDTO>>? GetAllSectionGroup()
         {
-            var result = _context.SectionGroups.ToList();
+            var result = await _context.SectionGroups.ToListAsync();
             if(result.Count == 0)
                 return null;
-            return (List<SectionGroupDTO>)result.Select(grp=> new SectionGroupDTO
+            return result.Select(grp => new SectionGroupDTO
             {
                 Id = grp.Id,
                 CourseId = grp.CourseId,
@@ -42,28 +42,28 @@ namespace QRAttend.Services
             }).ToList();
         }
 
-        public SectionGroupDTO? GetSectionGroupById(int id)
+        public async Task<SectionGroupDTO>? GetSectionGroupById(int id)
         {
-            var result = _context.SectionGroups.Select(sec => new SectionGroupDTO
+            var result = await _context.SectionGroups.Select(sec => new SectionGroupDTO
             {
                 Id = sec.Id,
                 Name = sec.Name,
                 CourseId = sec.CourseId
-            }).FirstOrDefault(group => group.Id == id);
+            }).FirstOrDefaultAsync(group => group.Id == id);
             if (result == null)
                 return null;
 
             return result;
         }
 
-        public List<SectionGroupDTO>? GetAllSectionGroupByAssistantTeacherId(string id,int courseId)
+        public async Task<List<SectionGroupDTO>>? GetAllSectionGroupByAssistantTeacherId(string id,int courseId)
         {
-            var assistantGroups = _context.AssistantTeacherSections.Where(grp=>grp.TeacherId == id).Select(grp => grp.SectionGroupId).ToList();
+            var assistantGroups = await _context.AssistantTeacherSections.Where(grp=>grp.TeacherId == id).Select(grp => grp.SectionGroupId).ToListAsync();
 
-            var groups = _context.SectionGroups.Where(grp=>assistantGroups.Contains(grp.Id) && grp.CourseId == courseId).ToList();
+            var groups = await _context.SectionGroups.Where(grp=>assistantGroups.Contains(grp.Id) && grp.CourseId == courseId).ToListAsync();
             if (groups.Count == 0)
                 return null;
-            return (List<SectionGroupDTO>)groups.Select(grp => new SectionGroupDTO
+            return groups.Select(grp => new SectionGroupDTO
             {
                 Id = grp.Id,
                 CourseId = grp.CourseId,

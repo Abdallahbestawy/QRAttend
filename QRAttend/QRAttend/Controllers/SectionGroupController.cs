@@ -31,7 +31,7 @@ namespace QRAttend.Controllers
             {
                 return Unauthorized();
             }
-            var result = _SectionGroupRepo.CreateGroup(new SectionGroup
+            var result = await _SectionGroupRepo.CreateGroup(new SectionGroup
             {
                 Name = sectionGroup.Name,
                 CourseId = sectionGroup.CourseId
@@ -48,7 +48,7 @@ namespace QRAttend.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
                 return Unauthorized();
-            return Ok(_SectionGroupRepo.GetAllSectionGroup());
+            return Ok(await _SectionGroupRepo.GetAllSectionGroup());
         }
     }
 }
