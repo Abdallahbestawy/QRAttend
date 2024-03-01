@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QRAttend.webapp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ac201c51702e1e74186a8c0e40261d9610d8e41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f019926f67560a53b436c36fd759d486a2129a7")]
 [assembly: System.Reflection.AssemblyProductAttribute("QRAttend.webapp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QRAttend.webapp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
