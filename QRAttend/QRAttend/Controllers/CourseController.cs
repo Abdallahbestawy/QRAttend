@@ -16,11 +16,13 @@ namespace QRAttend.Controllers
     {
         private readonly ICourseRepo _courseRepo;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAcademicYearRepo _academicYearRepo;
 
-        public CourseController(ICourseRepo courseRepo, UserManager<ApplicationUser> userManager)
+        public CourseController(ICourseRepo courseRepo, UserManager<ApplicationUser> userManager, IAcademicYearRepo academicYearRepo)
         {
             _courseRepo = courseRepo;
             _userManager = userManager;
+            _academicYearRepo = academicYearRepo;
         }
         [HttpPost("Add")]
         public async Task<IActionResult> Create(CourseDTO course)
@@ -30,7 +32,8 @@ namespace QRAttend.Controllers
             {
                 return Unauthorized();
             }
-            int done = await _courseRepo.Create(new Course { AcademicYearId =1,Name=course.Name,TeacherId = currentUser.Id});
+            var currentAcademicYear = await _academicYearRepo.GetCurrentOne();
+            int done = await _courseRepo.Create(new Course { AcademicYearId =currentAcademicYear.Id,Name=course.Name,TeacherId = currentUser.Id});
             if (done == 0)
             {
                 return BadRequest();

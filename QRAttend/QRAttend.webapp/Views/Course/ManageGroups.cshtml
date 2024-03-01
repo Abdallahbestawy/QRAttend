@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QRAttend.Dto.SectionGroupDTO>
+
+@{
+    ViewData["Title"] = "ManageGroups";
+}
+
+<h1>ManageGroups</h1>
+
+<p>
+    @{
+        var courseId = int.Parse(ViewContext.RouteData.Values["id"].ToString());
+    }
+    <partial name="_SectionGroupForm" model="new AddSectionGroupDTO{CourseId = courseId}" />
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="3" class="text-center">No groups available for this course</td>
+            </tr>
+        }else
+        {
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>

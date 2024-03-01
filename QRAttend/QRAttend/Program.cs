@@ -60,7 +60,9 @@ builder.Services.AddScoped<ICourseRepo, CourseRepo>();
 builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<ISectionRepo, SectionRepo>();
 builder.Services.AddTransient<ISectionGroupRepo, SectionGroupRepo>();
-builder.Services.AddTransient<ISectionAttendanceRepo, QRAttend.Services.SectionAttendanceRepo>();
+builder.Services.AddTransient<ISectionAttendanceRepo, SectionAttendanceRepo>();
+builder.Services.AddTransient<IUsersRepo, UsersRepo>();
+builder.Services.AddTransient<IAcademicYearRepo, AcademicYearRepo>();
 
 
 var app = builder.Build();

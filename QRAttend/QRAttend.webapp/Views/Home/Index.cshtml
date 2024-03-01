@@ -1,8 +1,45 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .dashboard-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .dashboard-summary {
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard-summary-row {
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333333; /* Text color */
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="display-4">Dashboard</h1>
+    </div>
+    <div class="dashboard-summary">
+        <div class="dashboard-summary-row">Number of Courses: @Model.TotalCourses</div>
+        <div class="dashboard-summary-row">Academic Year: @Model.CurrentAcademicYearName</div>
+        <div class="dashboard-summary-row">Number of Sections: @Model.TotalSections</div>
+        <div class="dashboard-summary-row">Number of Users: @Model.TotalUsers</div>
+    </div>
 </div>

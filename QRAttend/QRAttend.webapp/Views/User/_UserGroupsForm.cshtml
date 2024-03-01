@@ -1,0 +1,96 @@
+﻿@model AddSectionGroupsForUserDTO
+
+<div id="formContainer">
+    <form method="post" id="addSectionGroupsForm">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Add Section Groups for User</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    @Html.LabelFor(model => model.Courses)
+                    @Html.DropDownListFor(model => model.CourseId, new SelectList(Model.Courses, "Id", "Name", Model.Courses.FirstOrDefault()?.Id),
+                             "Select Course", new { @class = "form-control", id = "courseDropdown" })
+                </div>
+                <input type="hidden" asp-for="@Model.UserId" id="UserId" />
+                <input type="hidden" asp-for="@Model.CourseId" />
+                <div id="groupList">
+                    <label>Groups:</label>
+                    @for (var i = 0; i < Model.SectionGroups.Count; i++)
+                    {
+                        <div class="form-check m-1">
+                            <input type="hidden" asp-for="@Model.SectionGroups[i].Id" />
+                            <input type="hidden" asp-for="@Model.SectionGroups[i].Name" />
+                            <input asp-for="@Model.SectionGroups[i].IsSelected" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@Model.SectionGroups[i].IsSelected">
+                                @Model.SectionGroups[i].Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#courseDropdown').change(function () {
+            var userId = $('#UserId').val();
+            var courseId = $(this).val();
+            if (courseId) {
+                $.ajax({
+                    url: '/User/GetGroupsByCourseId',
+                    type: 'GET',
+                    data: { courseId: courseId, userId: userId },
+                    success: function (data) {
+                        // Get the group list container
+                        var groupList = $('#groupList');
+
+                        // Clear the group list
+                        groupList.empty();
+
+                        // Append the label for groups
+                        groupList.append('<label>Groups:</label>');
+
+                        // Append the checkboxes for each group
+                        $.each(data, function (index, group) {
+                            var checkbox = $('<input type="checkbox" class="form-check-input" name="SectionGroups[' + index + '].Id" id="checkbox_' + group.id + '">');
+                            checkbox.val(group.id);
+
+                            // Check the checkbox if IsSelected is true
+                            if (group.isSelected) {
+                                checkbox.prop('checked', true);
+                            }
+
+                            // Hidden inputs for IsSelected, Name, and Id
+                            var hiddenIsSelected = $('<input type="hidden" name="SectionGroups[' + index + '].IsSelected" value="' + group.isSelected + '">');
+                            var hiddenName = $('<input type="hidden" name="SectionGroups[' + index + '].Name" value="' + group.name + '">');
+                            var hiddenId = $('<input type="hidden" name="SectionGroups[' + index + '].Id" value="' + group.id + '">');
+
+                            var label = $('<label class="form-check-label" for="checkbox_' + group.id + '">').text(group.name);
+                            var div = $('<div class="form-check">').append(checkbox).append(label).append(hiddenIsSelected).append(hiddenName).append(hiddenId);
+                            groupList.append(div);
+                        });
+
+                        // Update IsSelected value when checkbox is clicked
+                        $('.form-check-input').change(function () {
+                            var index = $(this).attr('name').match(/\d+/)[0]; // Get the index of the checkbox
+                            var isSelected = $(this).is(':checked'); // Get the current value of IsSelected
+                            $('input[name="SectionGroups[' + index + '].IsSelected"]').val(isSelected); // Update the hidden input value
+                        });
+                    },
+                    error: function () {
+                        $('#groupList').html('<p>Error loading groups for selected course</p>');
+                    }
+                });
+            } else {
+                $('#groupList').html('<label>Groups:</label><p>Select a course to load groups</p>');
+            }
+        });
+    });
+</script>

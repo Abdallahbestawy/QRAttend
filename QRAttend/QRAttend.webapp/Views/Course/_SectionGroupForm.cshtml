@@ -1,0 +1,12 @@
+﻿@model AddSectionGroupDTO
+
+<form method="post" asp-action="AddGroup">
+    <div class="input-group mb-3">
+        <input type="hidden" asp-for="CourseId"/>
+        <input asp-for="Name" class="form-control" placeholder="Group name..." />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Add New Group</button>
+        </div>
+    </div>
+    <span asp-validation-for="Name" class="text-danger"></span>
+</form>

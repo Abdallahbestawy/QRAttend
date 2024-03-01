@@ -2,6 +2,7 @@
 using QRAttend.Dto;
 using QRAttend.Models;
 using QRAttend.Repositories;
+using System.Linq;
 
 namespace QRAttend.Services
 {
@@ -70,5 +71,79 @@ namespace QRAttend.Services
                 Name = grp.Name
             }).ToList();
         }
+
+        public async Task<List<SectionGroupDTO>>? GetAllSectionGroupByCourseId(int courseId)
+        {
+            var groups = await _context.SectionGroups.Where(sec=>sec.CourseId == courseId).ToListAsync();
+
+            var result = groups.Select(sec => new SectionGroupDTO
+            {
+                Id = sec.Id,
+                CourseId = sec.CourseId,
+                Name = sec.Name
+            }).ToList();
+
+            return result;
+        }
+
+        public async Task<bool> AddUserToSectionGroups(AddSectionGroupsForUserDTO model)
+        {
+            if (model == null || model.SectionGroups == null)
+            {
+                // Handle invalid input
+                return false;
+            }
+
+            var usergroups = await _context.AssistantTeacherSections
+                .Where(grp => grp.TeacherId == model.UserId && grp.sectionGroup.CourseId == model.CourseId)
+                .ToListAsync();
+
+            var newgroups = model.SectionGroups;
+
+            if (usergroups == null)
+            {
+                foreach (var newGroup in newgroups)
+                {
+                    if (newGroup.IsSelected)
+                    {
+                        _context.AssistantTeacherSections.Add(new AssistantTeacherSection
+                        {
+                            TeacherId = model.UserId,
+                            SectionGroupId = newGroup.Id
+                        });
+                    }
+                }
+            }
+            else
+            {
+                foreach (var newGroup in newgroups)
+                {
+                    if (newGroup.IsSelected)
+                    {
+                        if (!usergroups.Any(ug => ug.SectionGroupId == newGroup.Id))
+                        {
+                            _context.AssistantTeacherSections.Add(new AssistantTeacherSection
+                            {
+                                TeacherId = model.UserId,
+                                SectionGroupId = newGroup.Id
+                            });
+                        }
+                    }
+                    else
+                    {
+                        var existingGroup = usergroups.FirstOrDefault(ug => ug.SectionGroupId == newGroup.Id);
+                        if (existingGroup != null)
+                        {
+                            _context.AssistantTeacherSections.Remove(existingGroup);
+                        }
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
     }
 }

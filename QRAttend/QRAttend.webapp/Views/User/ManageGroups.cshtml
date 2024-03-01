@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QRAttend.Dto.CourseGroupsDTO>
+
+@{
+    ViewData["Title"] = "ManageGroups";
+}
+
+<h1>ManageGroups</h1>
+@{
+    var SectionGroups = Model.FirstOrDefault().AddGroupForUser;
+}
+<partial name="_UserGroupsForm" model="SectionGroups" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>Groups</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any() || Model.FirstOrDefault().CourseName == "0000")
+        {
+            <tr>
+                <td colspan="2" class="text-center">No groups assigned for this user</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                            @if(item.SectionGroups != null)
+                            {
+                                @string.Join(" , ", item.SectionGroups.Select(g=>g.Name).ToList())
+                            }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

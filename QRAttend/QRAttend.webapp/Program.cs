@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QRAttend.Models;
+using QRAttend.Repositories;
+using QRAttend.Services;
 using QRAttend.webapp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,15 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<QRContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+builder.Services.AddScoped<ICourseRepo, CourseRepo>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ISectionRepo, SectionRepo>();
+builder.Services.AddScoped<ISectionGroupRepo, SectionGroupRepo>();
+builder.Services.AddScoped<ISectionAttendanceRepo, SectionAttendanceRepo>();
+builder.Services.AddScoped<IUsersRepo, UsersRepo>();
+builder.Services.AddScoped<IAcademicYearRepo, AcademicYearRepo>();
 
 builder.Services.AddControllersWithViews();
 

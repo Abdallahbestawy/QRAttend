@@ -1,0 +1,42 @@
+﻿@model IEnumerable<QRAttend.Dto.UserDTO>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Add" class="btn btn-primary">Add New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserId</th>
+            <th>UserName</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.UserId
+            </td>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @string.Join(" , ", item.Roles.ToList())
+            </td>
+            <td>
+                @Html.ActionLink("Manage Roles", "ManageRoles", new { item.UserId }) 
+                | @Html.ActionLink("Manage Groups", "ManageGroups", new { item.UserId }) 
+                @* | @Html.ActionLink("Edit", "Edit", new { item.UserId })  *@
+                @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
