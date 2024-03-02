@@ -170,6 +170,10 @@
               "target": "Package",
               "version": "[6.0.25, )"
             },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.6.2, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

@@ -245,6 +245,70 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\0e9307dd-a5bb-439e-94a1-666d64585074..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\0e9307dd-a5bb-439e-94a1-666d64585074..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\1a700e09-884a-4966-900c-d2730ae168a4..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\1a700e09-884a-4966-900c-d2730ae168a4..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\229e2cbf-cc4b-41f8-82ac-0fec3ee5d833..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\229e2cbf-cc4b-41f8-82ac-0fec3ee5d833..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\2a3c9618-c2b1-42e9-b663-7333015e4b7f..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\2a3c9618-c2b1-42e9-b663-7333015e4b7f..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\2ac2e966-ca89-4a33-a24a-522607f11d19..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\2ac2e966-ca89-4a33-a24a-522607f11d19..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\3ed9ab85-4563-459e-9482-33ce53524640..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\3ed9ab85-4563-459e-9482-33ce53524640..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\61afb4a4-3f36-4d11-83cd-268a8b0968aa..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\61afb4a4-3f36-4d11-83cd-268a8b0968aa..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\6626588e-497c-4fd9-bbe1-eb3fe62819fd..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\6626588e-497c-4fd9-bbe1-eb3fe62819fd..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\74d78c36-edf1-4def-aa91-425ea9822f32..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\74d78c36-edf1-4def-aa91-425ea9822f32..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\b5183ace-335a-47b9-ba11-8a407604a63f..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\b5183ace-335a-47b9-ba11-8a407604a63f..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\ba10e7b2-9b71-4848-8252-b542618c8bc2..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\ba10e7b2-9b71-4848-8252-b542618c8bc2..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\c86cb4df-54f8-4505-922d-b923824c3f08..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\c86cb4df-54f8-4505-922d-b923824c3f08..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\e4b58dcc-0141-419e-9b3b-1ab187eaa17b..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\e4b58dcc-0141-419e-9b3b-1ab187eaa17b..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\eb0b947b-d2de-4ad9-b0cd-42f1d477ea12..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\eb0b947b-d2de-4ad9-b0cd-42f1d477ea12..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\f409e75e-163e-46d7-bf76-e15010049ceb..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\f409e75e-163e-46d7-bf76-e15010049ceb..xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed\\source\\repos\\QRAttend\\QRAttend\\QRAttend.webapp\\wwwroot\\uploads\\f90e03b0-1102-4dc3-9e0b-4d78a3d2c2f0..xlsx",
+      "PackagePath": "staticwebassets\\uploads\\f90e03b0-1102-4dc3-9e0b-4d78a3d2c2f0..xlsx"
+    },
+    {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.QRAttend.webapp.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

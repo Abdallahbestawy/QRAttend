@@ -190,6 +190,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXE1hbmFnZUdyb3Vwcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Mohamed/source/repos/QRAttend/QRAttend/QRAttend.webapp/Views/Course/ManageGroupStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXE1hbmFnZUdyb3VwU3R1ZGVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed/source/repos/QRAttend/QRAttend/QRAttend.webapp/Views/Course/_GroupStudentsForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXF9Hcm91cFN0dWRlbnRzRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Mohamed/source/repos/QRAttend/QRAttend/QRAttend.webapp/Views/Course/_SectionGroupForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXF9TZWN0aW9uR3JvdXBGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

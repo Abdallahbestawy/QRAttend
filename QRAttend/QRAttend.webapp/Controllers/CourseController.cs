@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QRAttend.Dto;
@@ -15,13 +16,15 @@ namespace QRAttend.webapp.Controllers
         private readonly IAcademicYearRepo _academicYearRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ISectionGroupRepo _sectionGroupRepo;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CourseController(ICourseRepo courseRepo, UserManager<ApplicationUser> userManager, IAcademicYearRepo academicYearRepo, ISectionGroupRepo sectionGroupRepo)
+        public CourseController(ICourseRepo courseRepo, UserManager<ApplicationUser> userManager, IAcademicYearRepo academicYearRepo, ISectionGroupRepo sectionGroupRepo, IWebHostEnvironment webHostEnvironment)
         {
             _courseRepo = courseRepo;
             _userManager = userManager;
             _academicYearRepo = academicYearRepo;
             _sectionGroupRepo = sectionGroupRepo;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -77,6 +80,74 @@ namespace QRAttend.webapp.Controllers
                 return BadRequest();
 
             return RedirectToAction(nameof(ManageGroups), new { id = sectionGroup.CourseId});
+        }
+
+        public async Task<IActionResult> ManageGroupStudents(int Id)
+        {
+            var result = await _sectionGroupRepo.GetStudetsBySectionGroupId(Id);
+            if (result == null)
+                result = new SectionGroupStudentsDTO();
+            return View(result);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ManageGroupStudents(AddSectiongroupStudentsFromExcelDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Check if a file is uploaded
+                if (model.File != null && model.File.Length > 0)
+                {
+                    var filePath = SaveFile(model.File);
+
+                    var studentsList = ExcelHelper.Import<StudentExcelDTO>(filePath);
+
+                    var result = await _sectionGroupRepo.AddListOfStudentsInSectionGroup(model.GroupId, studentsList);
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Students added successfully.";
+                        return RedirectToAction(nameof(ManageGroupStudents), new { id = model.GroupId });
+                    }
+                }
+                else
+                {
+                    // Handle case when no file is uploaded
+                    ModelState.AddModelError("File", "Please select a file.");
+                }
+            }
+            return RedirectToAction(nameof(ManageGroupStudents), new { id = model.GroupId });
+        }
+
+
+        // save the uploaded file into wwwroot/uploads folder
+        private string SaveFile(IFormFile file)
+        {
+            if (file.Length == 0)
+            {
+                throw new BadHttpRequestException("File is empty.");
+            }
+
+            var extension = Path.GetExtension(file.FileName);
+
+            var webRootPath = _webHostEnvironment.WebRootPath;
+            if (string.IsNullOrWhiteSpace(webRootPath))
+            {
+                webRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+
+            var folderPath = Path.Combine(webRootPath, "uploads");
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            var fileName = $"{Guid.NewGuid()}.{extension}";
+            var filePath = Path.Combine(folderPath, fileName);
+            using var stream = new FileStream(filePath, FileMode.Create);
+            file.CopyTo(stream);
+
+            return filePath;
         }
     }
 }

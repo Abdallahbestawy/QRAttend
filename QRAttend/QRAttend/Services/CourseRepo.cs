@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using QRAttend.Dto;
 using QRAttend.Models;
 using QRAttend.Repositories;
@@ -9,11 +10,13 @@ namespace QRAttend.Services
     {
         private readonly QRContext context;
         private readonly ISectionGroupRepo _sectionGroupRepo;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CourseRepo(QRContext _context, ISectionGroupRepo sectionGroupRepo)
+        public CourseRepo(QRContext _context, ISectionGroupRepo sectionGroupRepo, UserManager<ApplicationUser> userManager)
         {
             context = _context;
             _sectionGroupRepo = sectionGroupRepo;
+            _userManager = userManager;
         }
 
         public async Task<int> Create(Course course)
@@ -64,6 +67,7 @@ namespace QRAttend.Services
 
         public async Task<List<CourseGroupsDTO>>? GetCourseGroupsByAssistantTeacherId(string id)
         {
+            var user = await _userManager.FindByIdAsync(id);
             var courses = await GetByAssistantTeacherId(id);
             var result = new List<CourseGroupsDTO>();
             if (courses.Count == 0)
@@ -80,6 +84,7 @@ namespace QRAttend.Services
                 {
                     result.FirstOrDefault().AddGroupForUser.SectionGroups = allGroupss;
                     result.FirstOrDefault().AddGroupForUser.UserId = id;
+                    result.FirstOrDefault().AddGroupForUser.UserName = user.UserName;
                     result.FirstOrDefault().AddGroupForUser.CourseId = allCoursess.FirstOrDefault().Id;
                 }
                 else
@@ -112,6 +117,7 @@ namespace QRAttend.Services
             if(allGroups != null)
             {
                 result.FirstOrDefault().AddGroupForUser.UserId = id;
+                result.FirstOrDefault().AddGroupForUser.UserName = user.UserName;
                 result.FirstOrDefault().AddGroupForUser.CourseId = courses.FirstOrDefault().Id;
                 result.FirstOrDefault().AddGroupForUser.SectionGroups = allGroups;
             }else

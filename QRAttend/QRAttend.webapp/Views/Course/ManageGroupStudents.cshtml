@@ -1,0 +1,60 @@
+﻿@model SectionGroupStudentsDTO
+
+@{
+    ViewData["Title"] = "ManageGroupStudents";
+    string successMessage = TempData["SuccessMessage"] as string;
+}
+
+<h1>Manage Group Students</h1>
+@{
+    ViewBag.GroupId = Model.GroupId;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @successMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<partial name="_GroupStudentsForm" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                UniverstyId
+            </th>
+            <th>
+                Name@* @Html.DisplayNameFor(model => model.GroupName) *@
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Students == null)
+        {
+            <tr>
+                <td colspan="2" class="text-center">No Students assigned for this group</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model.Students)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UniverstyId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

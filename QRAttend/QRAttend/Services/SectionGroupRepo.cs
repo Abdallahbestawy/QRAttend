@@ -144,6 +144,89 @@ namespace QRAttend.Services
             return true;
         }
 
+        public async Task<SectionGroupStudentsDTO> GetStudetsBySectionGroupId(int sectionGroupId)
+        {
+            var groupStudents = await _context.StudentSections.Include(std=>std.Student).Where(std => std.SectionGroupId == sectionGroupId).ToListAsync();
+            var group = await GetSectionGroupById(sectionGroupId);
+            var result = new SectionGroupStudentsDTO();
+            result.GroupId = sectionGroupId;
+            result.GroupName = group.Name;
+            if (groupStudents.Count == 0)
+                return result;
+            var students = new List<NewStudentDTO>();
+            foreach (var student in groupStudents)
+            {
+                students.Add(new NewStudentDTO
+                {
+                    Id = student.Id,
+                    UniverstyId = student.Student.UniversityId,
+                    Name = student.Student.Name
+                });
+            }
+            result.Students = students;
+            return result;
+        }
 
+        public async Task<bool> AddListOfStudentsInSectionGroup(int sectionGroupId, List<StudentExcelDTO> students)
+        {
+            if (await GetSectionGroupById(sectionGroupId) == null)
+                return false;
+            var existingStudents = await _context.Students.ToListAsync();
+            var sectionGroupStudents = await GetStudetsBySectionGroupId(sectionGroupId);
+            foreach (var student in students)
+            {
+                var currStudentUniversityId = student.UniversityId;
+                //check if student is exist in the database
+                if (existingStudents.Any(std=>std.UniversityId == currStudentUniversityId))
+                {
+                    //check if group have students 
+                    if(sectionGroupStudents.Students != null)
+                    {
+                        //check if student is exist in the group
+                        if (sectionGroupStudents.Students.Any(std => std.UniverstyId == currStudentUniversityId))
+                            continue;
+                        else
+                        {
+                            _context.StudentSections.Add(new StudentSection
+                            {
+                                SectionGroupId = sectionGroupId,
+                                StudentId = existingStudents.Where(std => std.UniversityId == currStudentUniversityId).FirstOrDefault().Id
+                            });
+                        }
+                    }
+                    else
+                    {
+                        _context.StudentSections.Add(new StudentSection
+                        {
+                            SectionGroupId = sectionGroupId,
+                            StudentId = existingStudents.Where(std => std.UniversityId == currStudentUniversityId).FirstOrDefault().Id
+                        });
+                    }
+                }
+                else
+                {
+                    var newStudent = new Student
+                    {
+                        UniversityId = student.UniversityId,
+                        Name = student.Name
+                    };
+
+                    await _context.Students.AddAsync(newStudent);
+
+                    if (await _context.SaveChangesAsync() == 0)
+                        return false;
+
+                    _context.StudentSections.Add(new StudentSection
+                    {
+                        SectionGroupId = sectionGroupId,
+                        StudentId = newStudent.Id
+                    });
+                }
+            }
+            var result = await _context.SaveChangesAsync();
+            if (result == 0)
+                return false;
+            return true;
+        }
     }
 }

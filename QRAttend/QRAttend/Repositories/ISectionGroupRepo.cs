@@ -12,5 +12,7 @@ namespace QRAttend.Repositories
         Task<bool> CheckStudentInGroup(int studentId, int sectionId);
         Task<List<SectionGroupDTO>>? GetAllSectionGroupByAssistantTeacherId(string id, int courseId);
         Task<bool> AddUserToSectionGroups(AddSectionGroupsForUserDTO model);
+        Task<SectionGroupStudentsDTO> GetStudetsBySectionGroupId(int sectionGroupId);
+        Task<bool> AddListOfStudentsInSectionGroup(int sectionGroupId,List<StudentExcelDTO> students);
     }
 }
